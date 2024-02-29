@@ -1,6 +1,6 @@
 <template>
   <div id="header" class="main-header">
-    <v-icon name="menu" @click.native="$emit('toggleSidebar')" />
+<!--    <v-icon name="menu" @click.native="$emit('toggleSidebar')" />-->
     <h1>VUE DATE TIME PICKER</h1>
 
     <a href="https://github.com/MahdadGhasemian/vue-datetime-js">

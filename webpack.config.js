@@ -3,13 +3,14 @@
 
 var path = require('path')
 var webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'build.js',
   },
   module: {
     rules: [
@@ -65,7 +66,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      vue$: 'vue/dist/vue.esm.js'
+      //vue$: 'vue/dist/vue.esm.js'
+      vue$: 'vue/dist/vue.esm-bundler.js',
+      // vue: '@vue/runtime-dom',
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -77,8 +80,11 @@ module.exports = {
   performance: {
     hints: false
   },
-  plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
-  devtool: '#eval-source-map'
+  plugins: [
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new VueLoaderPlugin(),
+  ],
+  //devtool: '#eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -90,12 +96,12 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
-      compress: {
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   sourceMap: false,
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
@@ -127,13 +133,13 @@ if (process.env.NODE_ENV === 'export') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
-      mangle: true,
-      compress: {
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   sourceMap: false,
+    //   mangle: true,
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
@@ -162,13 +168,13 @@ if (process.env.NODE_ENV === 'browser') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
-      mangle: true,
-      compress: {
-        warnings: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   sourceMap: false,
+    //   mangle: true,
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })

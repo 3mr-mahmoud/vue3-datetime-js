@@ -1,4 +1,4 @@
-# vue-datetime-js
+# vue3-datetime-js
 
 [![npm version](https://badge.fury.io/js/vue-datetime-js.svg)](https://www.npmjs.com/package/vue-datetime-js)
 
@@ -9,7 +9,7 @@ See documentation and demo at [vue-datetime-js](https://mahdadghasemian.github.i
 
 ### npm
 ```bash
-npm install vue-datetime-js --save
+npm install vue3-datetime-js --save
 ```
 
 webpack.config.js:
@@ -29,7 +29,7 @@ module.exports.plugins = [
 main.js
 ```javascript
 //...
-import VueDatetimeJs from 'vue-datetime-js';
+import VueDatetimeJs from 'vue3-datetime-js';
 Vue.component('date-picker', VueDatetimeJs);
 //...
 ```
@@ -42,7 +42,7 @@ Or in component
 </template>
  
 <script>
-    import VueDatetimeJs from 'vue-datetime-js'
+    import VueDatetimeJs from 'vue3-datetime-js'
     export default {
         data(){
             return {
@@ -59,7 +59,7 @@ Or in component
 ## You can also set default values: 
 main.js
 ```javascript
-import VueDatetimeJs from 'vue-datetime-js';
+import VueDatetimeJs from 'vue3-datetime-js';
 Vue.use(VuePersianDatetimePicker, {
     name: 'custom-date-picker',
     props: {
@@ -96,6 +96,10 @@ This project is licensed under the MIT License
 
 
 ## Change log
+
+### 3.0.0(2022-04-06)
+
+  * Support vue3
 
 ### 1.2.2 (2019-12-04)
 

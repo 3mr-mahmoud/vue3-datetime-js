@@ -38,12 +38,12 @@ export const routes = [
     meta: { pageTitle: 'Home' },
     components: cmp(SimpleDate)
   },
-  {
-    path: '/installation',
-    name: 'installation',
-    meta: { pageTitle: 'Installation' },
-    components: cmp(InstallDocs)
-  },
+  // {
+  //   path: '/installation',
+  //   name: 'installation',
+  //   meta: { pageTitle: 'Installation' },
+  //   components: cmp(InstallDocs)
+  // },
   {
     path: '/formatting',
     name: 'formatting',

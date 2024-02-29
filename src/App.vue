@@ -1,16 +1,21 @@
 <template>
   <div id="app" :class="{ 'sidebar-open': sidebarOpen }">
-    <router-view name="header" @toggleSidebar="sidebarOpen = !sidebarOpen" />
-    <router-view name="sidebar" />
     <div class="main-content">
-      <div class="container"><router-view /></div>
+      <div class="container">
+        <SimpleDate />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import SimpleDate from './components/examples/SimpleDate.vue'
+
 export default {
   name: 'App',
+  components: {
+    SimpleDate
+  },
   data() {
     return {
       sidebarOpen: false

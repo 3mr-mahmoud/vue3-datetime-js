@@ -61,7 +61,7 @@
           prefix('wrapper'),
           prefix(`dir-${localeData.config.dir}`),
           inline ? prefix('is-inline') : '',
-          autoSubmit && !hasStep('t') ? prefix('no-footer') : ''
+          autoSubmit && !hasStep('t') ? prefix('no-footer') : '',
         ]"
         :data-type="type"
         @click.self="wrapperClick"
@@ -101,7 +101,7 @@
                 >
                   {{
                     core.localesConfig[localeItem].lang.label ||
-                      localeItem.toUpperCase()
+                    localeItem.toUpperCase()
                   }}
                 </li>
               </ul>
@@ -144,7 +144,9 @@
                       @click="goStep('m')"
                     >
                       <span :style="{ 'border-color': color, color: color }">{{
-                        date.xFormat((calendar === 'hijri') ? 'iMMMM iYYYY' : 'jMMMM jYYYY')
+                        date.xFormat(
+                          calendar === 'hijri' ? 'iMMMM iYYYY' : 'jMMMM jYYYY'
+                        )
                       }}</span>
                     </div>
                   </transition>
@@ -173,16 +175,15 @@
                           :key="mi"
                           class="clearfix"
                         >
-                          <div
-                            v-for="(day, di) in m"
+                          <div v-for="(day, di) in m"
                             :key="di"
                             :class="[
                               prefix('day'),
                               {
                                 selected: day.selected,
-                                empty: day.date == null
+                                empty: day.date == null,
                               },
-                              day.attributes.class
+                              day.attributes.class,
                             ]"
                             v-bind="day.attributes"
                             :disabled="day.disabled"
@@ -205,7 +206,7 @@
                 </div>
               </template>
 
-              <div v-else style="height:250px" />
+              <div v-else style="height: 250px" />
 
               <transition name="fade">
                 <div
@@ -214,7 +215,7 @@
                   ref="year"
                   :class="[
                     prefix('addon-list'),
-                    { 'can-close': steps.length > 1 }
+                    { 'can-close': steps.length > 1 },
                   ]"
                 >
                   <div :class="[prefix('addon-list-content')]">
@@ -225,16 +226,18 @@
                       :class="[
                         prefix('addon-list-item'),
                         { selected: year.selected },
-                        year.attributes.class
+                        year.attributes.class,
                       ]"
                       :style="[
                         { color: year.selected ? color : '' },
-                        year.attributes.style
+                        year.attributes.style,
                       ]"
                       :disabled="year.disabled"
                       @click="selectYear(year)"
                     >
-                      {{ year.xFormat((calendar === 'hijri') ? 'iYYYY' : 'jYYYY') }}
+                      {{
+                        year.xFormat(calendar === 'hijri' ? 'iYYYY' : 'jYYYY')
+                      }}
                     </div>
                   </div>
                 </div>
@@ -248,7 +251,7 @@
                   :class="[
                     prefix('addon-list'),
                     prefix('month-list'),
-                    { 'can-close': steps.length > 1 }
+                    { 'can-close': steps.length > 1 },
                   ]"
                 >
                   <div :class="[prefix('addon-list-content')]">
@@ -259,16 +262,20 @@
                       :class="[
                         prefix('addon-list-item'),
                         { selected: monthItem.selected },
-                        monthItem.attributes.class
+                        monthItem.attributes.class,
                       ]"
                       :disabled="monthItem.disabled"
                       :style="[
                         { color: monthItem.selected ? color : '' },
-                        monthItem.attributes.style
+                        monthItem.attributes.style,
                       ]"
                       @click="selectMonth(monthItem)"
                     >
-                      {{ monthItem.xFormat((calendar === 'hijri') ? 'iMMMM' : 'jMMMM') }}
+                      {{
+                        monthItem.xFormat(
+                          calendar === 'hijri' ? 'iMMMM' : 'jMMMM'
+                        )
+                      }}
                     </div>
                   </div>
                 </div>
@@ -282,7 +289,7 @@
                   :class="[
                     prefix('addon-list'),
                     prefix('time'),
-                    { disabled: isDisableTime }
+                    { disabled: isDisableTime },
                   ]"
                 >
                   <div :class="[prefix('addon-list-content')]">
@@ -312,7 +319,7 @@
                                 transition:
                                   'all ' +
                                   timeData.transitionSpeed +
-                                  'ms ease-in-out'
+                                  'ms ease-in-out',
                               }"
                               >{{ item }}</span
                             >
@@ -353,7 +360,7 @@
                                 transition:
                                   'all ' +
                                   timeData.transitionSpeed +
-                                  'ms ease-in-out'
+                                  'ms ease-in-out',
                               }"
                               >{{ item }}</span
                             >
@@ -431,7 +438,7 @@ export default {
   components: { Arrow, Btn, CalendarIcon, TimeIcon },
   model: {
     prop: 'value',
-    event: 'input'
+    event: 'input',
   },
   props: {
     /**
@@ -745,7 +752,7 @@ export default {
      * @example true | false | +03:30 | +04:30
      * @version 2.1.0
      */
-    timezone: { type: [Boolean, String, Function], default: false }
+    timezone: { type: [Boolean, String, Function], default: false },
   },
   data() {
     let coreModule = new CoreModule(this.calendar, this.locale)
@@ -765,30 +772,25 @@ export default {
         year: 'y',
         month: 'm',
         day: 'd',
-        time: 't'
+        time: 't',
       },
       time: {},
       timeData: {
         transitionSpeed: 300,
         timeout: false,
-        lastUpdate: new Date().getTime()
+        lastUpdate: new Date().getTime(),
       },
       minDate: false,
       maxDate: false,
       output: '',
       updateNowInterval: null,
       locales: ['en'],
-      localeData: coreModule.locale
+      localeData: coreModule.locale,
     }
   },
   computed: {
     id() {
-      return (
-        '_' +
-        Math.random()
-          .toString(36)
-          .substr(2, 9)
-      )
+      return '_' + Math.random().toString(36).substr(2, 9)
     },
     input() {
       let input = false
@@ -807,9 +809,12 @@ export default {
     formattedDate() {
       let format = ''
 
-      if (this.hasStep('y')) format = (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY'
-      if (this.hasStep('m')) format += (this.calendar === 'hijri') ? 'iMMMM ' : 'jMMMM '
-      if (this.hasStep('d')) format = (this.calendar === 'hijri') ? 'ddd iDD iMMMM' : 'ddd jDD jMMMM'
+      if (this.hasStep('y'))
+        format = this.calendar === 'hijri' ? 'iYYYY' : 'jYYYY'
+      if (this.hasStep('m'))
+        format += this.calendar === 'hijri' ? 'iMMMM ' : 'jMMMM '
+      if (this.hasStep('d'))
+        format = this.calendar === 'hijri' ? 'ddd iDD iMMMM' : 'ddd jDD jMMMM'
       if (this.hasStep('t')) format += ' HH:mm '
 
       return format ? this.selectedDate.xFormat(format) : ''
@@ -821,20 +826,14 @@ export default {
       let selected = false
       let selectedStart = this.selectedDate.clone().startOf('day')
       let min = this.minDate
-        ? this.minDate
-            .clone()
-            .startOf('day')
-            .unix()
+        ? this.minDate.clone().startOf('day').unix()
         : -Infinity
       let max = this.maxDate
-        ? this.maxDate
-            .clone()
-            .endOf('day')
-            .unix()
+        ? this.maxDate.clone().endOf('day').unix()
         : Infinity
-      m.forEach(w => {
+      m.forEach((w) => {
         let week = []
-        w.forEach(d => {
+        w.forEach((d) => {
           let sel =
             d === null || selected
               ? false
@@ -845,18 +844,10 @@ export default {
             formatted: d === null ? '' : m.xDate(),
             selected: sel,
             disabled:
-              (this.minDate &&
-                m
-                  .clone()
-                  .startOf('day')
-                  .unix() < min) ||
-              (this.maxDate &&
-                m
-                  .clone()
-                  .endOf('day')
-                  .unix() > max) ||
+              (this.minDate && m.clone().startOf('day').unix() < min) ||
+              (this.maxDate && m.clone().endOf('day').unix() > max) ||
               (d && this.checkDisable('d', m)),
-            attributes: d ? this.getHighlights('d', m) : {}
+            attributes: d ? this.getHighlights('d', m) : {},
           })
           selected = sel
         })
@@ -869,15 +860,21 @@ export default {
       let moment = this.core.moment
       let min = this.minDate
         ? this.minDate.xYear()
-        : moment((this.calendar === 'hijri') ? '1340' : '1300', (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY').xYear()
+        : moment(
+            this.calendar === 'hijri' ? '1340' : '1300',
+            this.calendar === 'hijri' ? 'iYYYY' : 'jYYYY'
+          ).xYear()
       let max = this.maxDate
         ? this.maxDate.xYear()
-        : moment((this.calendar === 'hijri') ? '1472' : '1430', (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY').xYear()
+        : moment(
+            this.calendar === 'hijri' ? '1472' : '1430',
+            this.calendar === 'hijri' ? 'iYYYY' : 'jYYYY'
+          ).xYear()
       let cy = this.date.xYear()
       return this.core
         .getYearsList(min, max)
         .reverse()
-        .map(item => {
+        .map((item) => {
           let year = moment().xYear(item)
           year.selected = cy === item
           year.disabled = this.checkDisable('y', item)
@@ -889,7 +886,7 @@ export default {
       if (this.hasStep('m')) {
         let date = this.date.clone().xStartOf('month')
         let months = this.core.getMonthsList(this.minDate, this.maxDate, date)
-        months.forEach(m => {
+        months.forEach((m) => {
           m.selected = this.date.xMonth() === m.xMonth()
           m.disabled = m.disabled || this.checkDisable('m', m)
           m.attributes = this.getHighlights('m', m)
@@ -902,28 +899,16 @@ export default {
       return (
         this.hasStep('d') &&
         this.minDate &&
-        this.minDate
-          .clone()
-          .xStartOf('month')
-          .unix() >=
-          this.date
-            .clone()
-            .xStartOf('month')
-            .unix()
+        this.minDate.clone().xStartOf('month').unix() >=
+          this.date.clone().xStartOf('month').unix()
       )
     },
     nextMonthDisabled() {
       return (
         this.hasStep('d') &&
         this.maxDate &&
-        this.maxDate
-          .clone()
-          .xStartOf('month')
-          .unix() <=
-          this.date
-            .clone()
-            .xStartOf('month')
-            .unix()
+        this.maxDate.clone().xStartOf('month').unix() <=
+          this.date.clone().xStartOf('month').unix()
       )
     },
     canGoToday() {
@@ -988,19 +973,44 @@ export default {
             format = 'HH:mm'
             break
           case 'datetime':
-            format = (this.calendar === 'hijri') ? 'iYYYY/iMM/iDD HH:mm' : (this.calendar === 'jalali') ? 'jYYYY/jMM/jDD HH:mm' : 'YYYY/MM/DD HH:mm'
+            format =
+              this.calendar === 'hijri'
+                ? 'iYYYY/iMM/iDD HH:mm'
+                : this.calendar === 'jalali'
+                ? 'jYYYY/jMM/jDD HH:mm'
+                : 'YYYY/MM/DD HH:mm'
             break
           case 'date':
-            format = (this.calendar === 'hijri') ? 'iYYYY/iMM/iDD' : (this.calendar === 'jalali') ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD'
+            format =
+              this.calendar === 'hijri'
+                ? 'iYYYY/iMM/iDD'
+                : this.calendar === 'jalali'
+                ? 'jYYYY/jMM/jDD'
+                : 'YYYY/MM/DD'
             break
           case 'year':
-            format = (this.calendar === 'hijri') ? 'iYYYY' : (this.calendar === 'jalali') ? 'jYYYY' : 'YYYY'
+            format =
+              this.calendar === 'hijri'
+                ? 'iYYYY'
+                : this.calendar === 'jalali'
+                ? 'jYYYY'
+                : 'YYYY'
             break
           case 'month':
-            format = (this.calendar === 'hijri') ? 'iMM' : (this.calendar === 'jalali') ? 'jMM' : 'MM'
+            format =
+              this.calendar === 'hijri'
+                ? 'iMM'
+                : this.calendar === 'jalali'
+                ? 'jMM'
+                : 'MM'
             break
           case 'year-month':
-            format = (this.calendar === 'hijri') ? 'iYYYY/iMM' : (this.calendar === 'jalali') ? 'jYYYY/jMM' : 'YYYY/MM'
+            format =
+              this.calendar === 'hijri'
+                ? 'iYYYY/iMM'
+                : this.calendar === 'jalali'
+                ? 'jYYYY/jMM'
+                : 'YYYY/MM'
             break
         }
       }
@@ -1014,7 +1024,7 @@ export default {
     outputValue() {
       if (!this.output) return ''
       let output = this.output.clone()
-      let format = this.selfFormat;
+      let format = this.selfFormat
       // if (/j\w/.test(format)) {
       //   if (this.calendar === 'jalali') output.locale('fa')
       //   else if (this.calendar === 'hijri') output.locale('ar-sa')
@@ -1029,7 +1039,7 @@ export default {
       let format =
         this.localeData.config.displayFormat ||
         this.displayFormat ||
-        this.selfFormat;
+        this.selfFormat
       // if (/j\w/.test(format)) {
       //   if (this.calendar === 'jalali') output.locale('fa')
       //   else if (this.calendar === 'hijri') output.locale('ar-sa')
@@ -1052,12 +1062,7 @@ export default {
     },
     weekDays() {
       let names = JSON.parse(
-        JSON.stringify(
-          this.core
-            .moment()
-            .localeData()
-            .weekdaysMin()
-        )
+        JSON.stringify(this.core.moment().localeData().weekdaysMin())
       )
       let dow = this.core.locale.config.dow
       while (dow > 0) {
@@ -1068,7 +1073,7 @@ export default {
     },
     lang() {
       return this.localeData.config.lang
-    }
+    },
   },
   watch: {
     type: { handler: 'setType', immediate: true },
@@ -1081,14 +1086,14 @@ export default {
       handler(val) {
         if (!this.disabled) this.visible = !!val
       },
-      immediate: true
+      immediate: true,
     },
     disabled: {
       handler(val) {
         if (val) this.visible = false
         else if (this.inline) this.visible = true
       },
-      immediate: true
+      immediate: true,
     },
     selectedDate(val, old) {
       this.setDirection('directionClass', val, old)
@@ -1113,7 +1118,7 @@ export default {
         }
         if (old) this.setDirection('directionClassTime', val, old)
       },
-      immediate: true
+      immediate: true,
     },
     visible(val) {
       if (val) {
@@ -1147,11 +1152,11 @@ export default {
         let locales = val
           .toString()
           .split(',')
-          .filter(i => allowedLocales.indexOf(i) !== -1)
+          .filter((i) => allowedLocales.indexOf(i) !== -1)
         this.locales = locales.length ? locales : ['en']
         this.setLocale(this.locales[0])
       },
-      immediate: true
+      immediate: true,
     },
     localeConfig: {
       handler(config) {
@@ -1159,12 +1164,12 @@ export default {
         this.setLocale(this.locales[0])
       },
       deep: true,
-      immediate: true
+      immediate: true,
     },
     'localeData.name'() {
       this.$emit('localeChange', this.localeData)
       this.setMinMax()
-    }
+    },
   },
   created() {
     this.updateNowInterval = setInterval(() => {
@@ -1178,7 +1183,7 @@ export default {
         else el.addEventListener(type, handler)
       }
       let live = (selector, event, callback, context) => {
-        addEvent(context || document, event, function(e) {
+        addEvent(context || document, event, function (e) {
           let found,
             el = e.target || e.srcElement
           while (el && !(found = el.id === selector)) el = el.parentElement
@@ -1189,7 +1194,7 @@ export default {
         live(this.element, 'click', this.focus)
       }
     })
-    document.body.addEventListener('keydown', e => {
+    document.body.addEventListener('keydown', (e) => {
       e = e || event
       if (e.keyCode === 9 && this.visible) this.visible = false
     })
@@ -1328,7 +1333,7 @@ export default {
         this.output = this.selectedDate.clone()
       } else {
         this.output = null
-        this.$forceUpdate()
+        //this.$forceUpdate()
       }
     },
     goToday() {
@@ -1401,7 +1406,7 @@ export default {
               a = now.clone().set({
                 h: a.hour(),
                 m: a.minute(),
-                s: 0
+                s: 0,
               })
               b = a.clone()
             }
@@ -1456,7 +1461,7 @@ export default {
         this.updateDates(this.output.clone())
         this.submit()
       } else {
-        this.$forceUpdate()
+        //this.$forceUpdate()
         this.$emit('input', null)
         this.$emit('change', null)
       }
@@ -1491,10 +1496,7 @@ export default {
           let length = filter.length
           return (
             str.substr(0, length) === filter ||
-            date
-              .clone()
-              .locale('en')
-              .format('dddd') === filter
+            date.clone().locale('en').format('dddd') === filter
           )
         }
         return false
@@ -1519,13 +1521,21 @@ export default {
         return false
       }
 
-      if (item === 'y') value = this.core.moment(value, (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY')
+      if (item === 'y')
+        value = this.core.moment(
+          value,
+          this.calendar === 'hijri' ? 'iYYYY' : 'jYYYY'
+        )
       return check(value, value.format(this.selfFormat))
     },
     getHighlights(item, value) {
       let highlight = this.highlight
       if (!highlight || typeof highlight !== 'function') return {}
-      if (item === 'y') value = this.core.moment(value, (this.calendar === 'hijri') ? 'iYYYY' : 'jYYYY')
+      if (item === 'y')
+        value = this.core.moment(
+          value,
+          this.calendar === 'hijri' ? 'iYYYY' : 'jYYYY'
+        )
       return (
         this.applyDevFn(
           highlight,
@@ -1550,7 +1560,7 @@ export default {
       this.core.changeLocale(this.calendar, locale, this.localeConfig)
       this.date = this.date.clone()
       this.selectedDate = this.selectedDate.clone()
-      this.$forceUpdate()
+      //this.$forceUpdate()
     },
     setTimezone(date, mode) {
       let tz = this.timezone
@@ -1558,10 +1568,7 @@ export default {
       let moment = this.core.moment
       if (tz) {
         if (typeof tz === 'string') {
-          let t =
-            moment()
-              .utc()
-              .format('YYYY-MM-DDTHH:mm:ss') + tz
+          let t = moment().utc().format('YYYY-MM-DDTHH:mm:ss') + tz
           date.add(moment.parseZone(t).utcOffset() * r, 'minutes')
         } else if (typeof tz === 'boolean' && tz) {
           date.subtract(new Date().getTimezoneOffset() * r, 'minutes')
@@ -1570,24 +1577,24 @@ export default {
         }
       }
       return date.clone()
-    }
+    },
   },
-  install(Vue, options) {
-    let component = this
-    options = Vue.util.extend(
-      {
-        name: 'data-picker',
-        props: {}
-      },
-      options
-    )
-
-    for (let k in options.props) {
-      if (component.props.hasOwnProperty(k)) {
-        component.props[k].default = options.props[k]
-      }
-    }
-    Vue.component(options.name, component)
-  }
+  // install(app, options) {
+  //   let component = this
+  //   options = app.util.extend(
+  //     {
+  //       name: 'data-picker',
+  //       props: {}
+  //     },
+  //     options
+  //   )
+  //
+  //   for (let k in options.props) {
+  //     if (component.props.hasOwnProperty(k)) {
+  //       component.props[k].default = options.props[k]
+  //     }
+  //   }
+  //   app.component(options.name, component)
+  // }
 }
 </script>
