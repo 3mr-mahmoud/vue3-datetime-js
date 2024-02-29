@@ -81,14 +81,17 @@ module.exports = {
     hints: false
   },
   plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/,
+    }),
     new VueLoaderPlugin(),
   ],
-  //devtool: '#eval-source-map'
+  devtool: 'eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = 'eval-source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -125,7 +128,7 @@ if (process.env.NODE_ENV === 'export') {
     'moment-jalaali'
   ])
 
-  module.exports.devtool = ''
+  module.exports.devtool = 'eval-source-map'
 
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -161,7 +164,7 @@ if (process.env.NODE_ENV === 'browser') {
     moment: 'moment',
     'moment-jalaali': 'moment'
   }
-  module.exports.devtool = ''
+  module.exports.devtool = 'eval-source-map'
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
